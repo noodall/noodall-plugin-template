@@ -122,3 +122,11 @@ generate 'cucumber:install'
 prepend_file 'features/support/env.rb', 'ENV["RAILS_ROOT"] ||= File.expand_path(File.dirname(__FILE__) + "/../../test/dummy")'
 
 gsub_file 'features/support/env.rb', ':transaction', ':truncation'
+
+create_file 'features/support/noodall.rb' do
+  <<-RUBY
+# Load Noodall specific stuff
+require 'noodall/permalinks'
+World(Noodall::Permalinks)
+  RUBY
+end
