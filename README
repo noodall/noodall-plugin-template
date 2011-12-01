@@ -1,0 +1,3 @@
+USAGE
+
+rails plugin new noodall-thing --full -Om noodall-plugin-template/template.rb
