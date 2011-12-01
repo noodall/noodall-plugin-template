@@ -117,6 +117,81 @@ inject_into_class 'test/dummy/app/controllers/application_controller.rb', 'Appli
   RUBY
 end
 
+create_file 'test/dummy/app/models/content_page.rb' do
+  <<-RUBY
+class ContentPage < Noodall::Node
+  # Define which Node Templates can be used as children of Nodes using this template
+  sub_templates ContentPage
+
+  # Define the number of each slot type this Node Template allows. Slots are defined in 'config/initializers/noodall.rb'
+  # small_slots 4
+end
+  RUBY
+end
+
+create_file 'test/dummy/app/views/admin/nodes/_content_page.html.erb' do
+  <<-'RUBY'
+<%= render :partial => 'noodall/admin/nodes/body', :locals => { :f => f }  %>
+<% content_for :component_table do %>
+<!--
+  modify this table to look like your template and link slots to correct anchors
+<table class="component-table">
+  <tr>
+    <td rowspan="2" class="content"></td>
+    <td colspan="2" rowspan="4" class="content"></td>
+    <td><a href="#small_component_form_0" class="slot_link">4</a></td>
+  </tr>
+  <tr>
+    <td><a href="#small_component_form_1" class="slot_link">5</a></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><a href="#small_component_form_2" class="slot_link">6</a></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><a href="#small_component_form_3" class="slot_link">7</a></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td colspan="2"><a href="#wide_component_form_0" class="slot_link">1</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td colspan="2"><a href="#wide_component_form_1" class="slot_link">2</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td colspan="2"><a href="#wide_component_form_2" class="slot_link">3</a></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+-->
+<% end -%>
+  RUBY
+end
+
+create_file 'test/dummy/app/views/nodes/content_page.html.erb' do
+  <<-RUBY
+<h1><%= @node.title %></h1>
+
+<%= @node.body.html_safe %>
+
+<!--
+Add a slot for your new component here
+<%= component @node, '<component_name>_slot_0' %>
+-->
+  RUBY
+end
+
 generate 'cucumber:install'
 
 prepend_file 'features/support/env.rb', 'ENV["RAILS_ROOT"] ||= File.expand_path(File.dirname(__FILE__) + "/../../test/dummy")'
