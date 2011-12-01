@@ -64,6 +64,31 @@ Noodall::Routes.draw(Dummy::Application)
   RUBY
 end
 
+create_file 'test/dummy/config/initializers/noodall.rb' do
+  <<-RUBY
+# Add your Noodall:Node slots here
+#
+#   Noodall::Node.slot :<slot name>, <component name>
+#
+# For example:
+#
+#   Noodall::Node.slot :carousel, Carousel
+  RUBY
+end
+
+create_file 'test/dummy/config/initializers/noodall_dragonfly.rb' do
+  <<-RUBY
+# Configuration for processing and encoding
+app = Dragonfly::App[:noodall_assets]
+app.configure_with(:imagemagick)
+app.configure_with(:rails)
+app.datastore = Dragonfly::DataStorage::MongoDataStore.new :db => MongoMapper.database
+
+# For more info about Dragonfly configuration please visit
+# http://markevans.github.com/dragonfly/
+  RUBY
+end
+
 inject_into_class 'test/dummy/app/controllers/application_controller.rb', 'ApplicationController' do
   <<-RUBY
   @@current_user = User.find_or_create_by_full_name("Demo User")
