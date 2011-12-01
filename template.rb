@@ -130,3 +130,54 @@ require 'noodall/permalinks'
 World(Noodall::Permalinks)
   RUBY
 end
+
+create_file 'factories/asset.rb' do
+  <<-'RUBY'
+Factory.define :asset do |asset|
+  asset.tags { Faker::Lorem.words(4) }
+  asset.title { "Image asset" }
+  asset.description { "The asset description" }
+  asset.file { Fakerama::Asset::Photo.landscape }
+end
+
+Factory.define :txt_asset, :parent => :asset do |asset|
+  asset.title { "A text file asset" }
+  asset.description { "The text file asset description" }
+  asset.file { Fakerama::Asset::Document.txt }
+end
+
+Factory.define :zip_asset, :parent => :asset do |asset|
+  asset.title { "A zip file asset" }
+  asset.description { "The zip file asset description" }
+  asset.file {File.new(File.expand_path("../../files/test.zip",  __FILE__))}
+end
+
+Factory.define :document_asset, :parent => :asset do |asset|
+  asset.title { "Document asset" }
+  asset.file { File.new("#{Rails.root}/spec/files/test.pdf") }
+end
+  RUBY
+end
+
+create_file 'factories/content_page.rb' do
+  <<-RUBY
+Factory.define :content_page do |content_page|
+  content_page.title { Faker::Lorem.words(3).join(' ') }
+  content_page.body { Faker::Lorem.paragraphs(6) }
+  content_page.published_at { Time.now }
+  content_page.publish true
+end
+  RUBY
+end
+
+create_file 'features/support/factory_girl.rb' do
+  <<-RUBY
+require 'factory_girl'
+require 'fakerama'
+FactoryGirl.definition_file_paths = [
+  File.expand_path(File.dirname(__FILE__) + '/../../factories')
+]
+FactoryGirl.find_definitions
+  RUBY
+end
+
