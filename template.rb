@@ -43,11 +43,11 @@ end
 create_file 'test/dummy/config/mongo.yml' do
   <<-YAML
 development:
-  database: noodall-articles_development
+  database: #{app_path}_development
 test:
-  database: noodall-articles_test
+  database: #{app_path}_test
 production:
-  database: noodall-articles_production
+  database: #{app_path}_production
   YAML
 end
 
