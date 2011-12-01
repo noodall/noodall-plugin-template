@@ -1,3 +1,6 @@
+rvmrc = "rvm 1.9.2@#{app_path} --create"
+create_file '.rvmrc', rvmrc
+
 append_file 'Gemfile', do
   <<-RUBY
 gem "noodall-ui"
