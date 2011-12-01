@@ -3,6 +3,7 @@ create_file '.rvmrc', rvmrc
 
 append_file 'Gemfile', do
   <<-RUBY
+gem "mm-versionable", '0.2.5'
 gem "noodall-ui"
 gem 'bson_ext'
 gem "dragonfly"
