@@ -1,6 +1,8 @@
 rvmrc = "rvm 1.9.2@#{app_path} --create"
 create_file '.rvmrc', rvmrc
 
+add_source "http://gems.github.com"
+
 append_file 'Gemfile', do
   <<-RUBY
 gem "mm-versionable", '0.2.5'
