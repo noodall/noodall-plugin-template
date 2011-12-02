@@ -6,7 +6,9 @@ Setup
 -----
 Generate a new component/plugin template
 
-  * `rails plugin new noodall-component-<name> --full -Om https://raw.github.com/noodall/noodall-plugin-template/master/template.rb`
+  * `rails plugin new noodall-components-<name> --full -Om https://raw.github.com/noodall/noodall-plugin-template/master/template.rb`
+
+We're using the naming convention `noodall-components-<name>` for new components.
 
 This generates a Rails Engine and applies our customisations.
 
