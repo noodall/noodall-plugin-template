@@ -29,3 +29,11 @@ Process
 * Setup factories in `/factories`
 
 * Fill in the `*.gemspec` file
+
+Testing
+-------
+The easiest way to test a new component is add a gem entry in your `Gemfile` pointing to a local path.
+
+  `gem '<gem name here>', :path => "/path/to/noodall/component/here"`
+
+Then do a `bundle install`
